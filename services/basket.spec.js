@@ -5,7 +5,8 @@ const expect = chai.expect
 const mongoose = require('mongoose')
 require('sinon-mongoose')
 
-const service = require('./basket')
+const Service = require('./basket')
+const service = new Service()
 
 describe('Basket Service', () => {
   it('should add a scanned item to an array of items', () => {
@@ -15,13 +16,22 @@ describe('Basket Service', () => {
       { sku: 'b2', price: 100, },
     ]
 
-    serviceMock.expects('scan').yields(new Promise().resolve(true))
-    serviceMock.expects('getItems').yields(new Promise().resolve(expected))
+    sinon.stub(service, 'scan').returns(new Promise((resolve, reject) => {
+      resolve(expected)
+    }))
+
+    sinon.stub(service, 'getItems').returns(Promise.resolve(expected))
 
     service.scan('a1').then(res => {
       serviceMock.verify()
       serviceMock.restore()
-      expect(res).to.be.true
+      expect(res).to.be.an('array')
+    })
+
+    service.getItems('getItems').then(res => {
+      serviceMock.verify()
+      serviceMock.restore()
+      expect(res).to.have.length(2)
     })
   })
 

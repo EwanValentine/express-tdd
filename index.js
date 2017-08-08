@@ -6,6 +6,8 @@ const methodOverride = require('method-override')
 const app = express()
 const config = require('./config/config')
 
+mongoose.Promise = global.Promise
+
 // Datastore set-up
 mongoose.connect(config.DB_HOST)
 
