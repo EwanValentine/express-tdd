@@ -15,11 +15,11 @@ Basket.prototype.scan = async function(sku) {
 }
 
 Basket.prototype.getItems = function() {
-  return this.items
+  return Promise.resolve(this.items)
 }
 
 Basket.prototype.getTotalPrice = function() {
-  return this.items.map(item => item.price).reduce((a, b) => a + b, 1)
+  return Promise.resovle(this.items.map(item => item.price).reduce((a, b) => a + b, 1))
 }
 
 module.exports = Basket
