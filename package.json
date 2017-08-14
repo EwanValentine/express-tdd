@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines" : { "node" : ">=8.0.0" },
   "scripts": {
-    "test": "find . -name '*.spec.js' | xargs mocha -R spec"
+    "test": "find . -name '*.spec.js' | xargs mocha -R spec",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
