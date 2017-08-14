@@ -24,10 +24,11 @@ describe('Basket Service', () => {
 
   it('should return the correct total for the given product SKU\'s', done => {
     _service.scan('A').then(res => {
-      const total = _service.getTotalPrice()
-      console.log(total)
-      expect(total).to.equal(50)
-      done()
+      _service.scan('B').then(res => {
+        const total = _service.getTotalPrice()
+        expect(total).to.equal(80)
+        done()
+      })
     })
   })
 })
