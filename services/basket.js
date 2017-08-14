@@ -8,7 +8,6 @@ function Basket() {
 Basket.prototype.scan = async function(sku) {
   const product = await repository.find(sku)
   this.items = [...this.items, product]
-  return this.items
 }
 
 Basket.prototype.getItems = function() {

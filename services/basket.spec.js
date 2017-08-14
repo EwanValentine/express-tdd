@@ -14,9 +14,9 @@ describe('Basket Service', () => {
   })
 
   it('should add a scanned item to an array of items', done => {
-    _service.scan('A').then(res => {
-      expect(res).to.be.an('array')
+    _service.scan('A').then(() => {
       const items = _service.getItems()
+      expect(items).to.be.an('array')
       expect(items).to.have.length(1)
       done()
     })
