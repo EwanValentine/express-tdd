@@ -1,17 +1,17 @@
 # Express Practice
 
-## Install
+## Install ##
 
 1. `$ npm install`
 
 
-## Run
+## Run ##
 
 1. `$ npm test && npm start`
 
-## Usage
+## Usage ##
 
-### Get basket
+### Get basket ###
 ```
 GET
 /api/v1/basket
@@ -30,7 +30,7 @@ Response
 ]
 ```
 
-### Get total
+### Get total ###
 
 ```
 GET
@@ -41,7 +41,7 @@ Response
 200 { total: 50 }
 ```
 
-### Scan item
+### Scan item ###
 
 ```
 PATCH
