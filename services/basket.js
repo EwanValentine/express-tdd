@@ -2,19 +2,39 @@ const _ = require('underscore')
 const Product = require('../models/Product')
 const repository = new Product()
 
-function Basket() {
-  this.items = []
+/**
+ * Basket
+ *
+ * @param {Array} items
+ */
+function Basket(items = []) {
+  this.items = items || []
 }
 
+/**
+ * scan
+ *
+ * @param {String} sku
+ */
 Basket.prototype.scan = async function(sku) {
   const product = await repository.find(sku)
   this.items = [...this.items, product]
 }
 
+/**
+ * getItems
+ *
+ * @return {Array}
+ */
 Basket.prototype.getItems = function() {
   return this.items
 }
 
+/**
+ * getTotalPrice
+ *
+ * @return {Number}
+ */
 Basket.prototype.getTotalPrice = function() {
 
   // Fetch all instances of sku's for the given sku

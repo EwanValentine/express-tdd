@@ -5,16 +5,7 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const app = express()
 const config = require('./config/config')
-
-mongoose.Promise = global.Promise
-
-// Datastore set-up
-mongoose.connect(config.DB_HOST)
-
-// On connection
-mongoose.connection.on('connected', () => {
-  console.log('Mongoose default connection open to ' + config.db)
-})
+const BasketController = require('./controllers/BasketController')
 
 const port = process.env.PORT || config.PORT
 
@@ -30,3 +21,9 @@ app.listen(port, err => {
   if(err) throw err
   console.log(`App listening on port ${config.PORT}`)
 })
+
+app.get('/api/v1/basket', BasketController.getItems)
+app.get('/api/v1/basket/total', BasketController.getTotalPrice)
+app.patch('/api/v1/basket', BasketController.scan)
+
+module.exports = app
