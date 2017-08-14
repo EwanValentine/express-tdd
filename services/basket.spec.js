@@ -23,11 +23,33 @@ describe('Basket Service', () => {
   })
 
   it('should return the correct total for the given product SKU\'s', done => {
-    _service.scan('A').then(res => {
-      _service.scan('B').then(res => {
+    _service.scan('A').then(() => {
+      _service.scan('B').then(() => {
         const total = _service.getTotalPrice()
         expect(total).to.equal(80)
         done()
+      })
+    })
+  })
+
+  it('should group items together if there\'s a deal', done => {
+    _service.scan('B').then(() => {
+      _service.scan('B').then(() => {
+        const total = _service.getTotalPrice()
+        expect(total).to.equal(45)
+        done()
+      })
+    })
+  })
+
+  it('should recognise deals if multiple items are added', done => {
+    _service.scan('B').then(() => {
+      _service.scan('A').then(() => {
+        _service.scan('B').then(() => {
+          const total = _service.getTotalPrice()
+          expect(total).to.equal(95)
+          done()
+        })
       })
     })
   })

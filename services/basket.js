@@ -1,3 +1,4 @@
+const _ = require('underscore')
 const Product = require('../models/Product')
 const repository = new Product()
 
@@ -15,7 +16,31 @@ Basket.prototype.getItems = function() {
 }
 
 Basket.prototype.getTotalPrice = function() {
-  return this.items.map(item => item.price).reduce((a, b) => a + b, 0)
+
+  // Fetch all instances of sku's for the given sku
+  const getCount = sku => this.items.filter(product => product.sku === sku)
+
+  // Apply new price to each item, which has a given
+  // `special` value, which contains the quantity and
+  // the new price. We're also removing duplicates at this
+  // point, which is actually not quite correct, because
+  // if we get more than two groups of the same item, it
+  // won't carry over.
+  const result = _.uniq(this.items.map(p => {
+  	const amount = getCount(p.sku).length
+    if (p.special) {
+
+      // If the amount of items found with this sku
+      // apply the new price
+    	if (amount === p.special.quantity) {
+        p.price = p.special.price
+      }
+    }
+    return p
+  }), 'sku')
+
+  // Get total
+  return result.map(item => item.price).reduce((a, b) => a + b, 0)
 }
 
 module.exports = Basket
