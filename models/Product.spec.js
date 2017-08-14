@@ -12,7 +12,7 @@ describe('Product Model', () => {
 
   it('should return all products', () => {
     _product.findAll().then(products => {
-      expect(products).to.have.length(2)
+      expect(products).to.have.length(4)
     })
   })
 

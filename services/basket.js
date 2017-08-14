@@ -16,7 +16,7 @@ Basket.prototype.getItems = function() {
 }
 
 Basket.prototype.getTotalPrice = function() {
-  return this.items.map(item => item.price).reduce((a, b) => a + b, 1)
+  return this.items.map(item => item.price).reduce((a, b) => a + b, 0)
 }
 
 module.exports = Basket
