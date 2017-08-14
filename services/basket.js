@@ -1,17 +1,14 @@
 const Product = require('../models/Product')
+const repository = new Product()
 
 function Basket() {
   this.items = []
 }
 
 Basket.prototype.scan = async function(sku) {
-  return new Promise((resolve, reject) => {
-    Product.findOne({ sku }, (err, product) => {
-      if (err) reject(err)
-      this.items = [...this.items, product]
-      resolve(this.items)
-    })
-  })
+  const product = await repository.find(sku)
+  this.items = [...this.items, product]
+  return this.items
 }
 
 Basket.prototype.getItems = function() {

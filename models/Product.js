@@ -1,18 +1,18 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+function Product() {
+  this.products = [
+    { sku: 'A', price: 50, special: [{ quantity: 3, price: 130 }] },
+    { sku: 'B', price: 30, special: [{ quantity: 2, price: 45 }] },
+    { sku: 'C', price: 20, },
+    { sku: 'D', price: 15, },
+  ]
+}
 
-const ProductSchema = Schema({
-  sku: {
-    type: String,
-  },
-  title: {
-    type: String,
-  },
-  price: {
-    type: Number
-  },
-})
+Product.prototype.find = function (sku) {
+  return Promise.resolve(this.products.find(item => item.sku === sku))
+}
 
-const ProductModel = mongoose.model('Product', ProductSchema)
+Product.prototype.findAll = function() {
+  return Promise.resolve(this.products)
+}
 
-module.exports = ProductModel
+module.exports = Product
